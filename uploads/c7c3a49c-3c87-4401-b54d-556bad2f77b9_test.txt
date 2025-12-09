@@ -1,0 +1,72 @@
+Project Meeting – AI Integration for Product Launch
+Date: 06 Dec 2025
+Attendees: Aisha (Project Manager), Rohan (Lead Developer), Meera (Data Scientist), Karan (Marketing Lead)
+
+00:00 – Aisha:
+Good morning team. Today’s meeting focuses on the final integration of the AI module before our January release. We need clarity on development progress, marketing timelines, and pending risks.
+
+00:18 – Rohan:
+Morning. The integration with the backend services is 80% complete. The core model is running, but we still need to optimize the response time. Currently it’s around 2.4 seconds per request. Our target is under 1.5 seconds.
+
+00:42 – Meera:
+Yes, I noticed the latency issue too. The embeddings pipeline is heavy. I can try batching or switching the vector store from FAISS to Chroma. That might reduce the query time.
+
+01:05 – Aisha:
+Perfect. Meera, can you handle that optimization? What’s your expected completion time?
+
+01:14 – Meera:
+If everything goes well, I should be able to finish by Wednesday. I will run benchmarks and share the results.
+
+01:25 – Karan:
+From the marketing side, we’re preparing the campaign materials. But we need a working demo video by next Friday. Without that, our social push and landing page content will be delayed.
+
+01:40 – Rohan:
+Understood. We can provide a demo, but only if the latency is stable. Otherwise, it will look laggy.
+
+01:50 – Aisha:
+Okay, so the timeline is tight. Meera finishes optimization by Wednesday. Rohan prepares the demo environment by Thursday. Karan needs the final video by Friday.
+
+02:06 – Karan:
+Yes, and one more thing. We also need a short explanation script for the AI assistant. Something like “what it does, how it helps, and what makes it unique.” Who is taking that?
+
+02:20 – Aisha:
+I can draft the script. But I will need input from Rohan and Meera on the technical features.
+
+02:28 – Rohan:
+Sure. I will send bullet points today.
+
+02:33 – Meera:
+I will add details about the model pipeline and sentiment detection.
+
+02:40 – Aisha:
+Great. Any risks we should discuss?
+
+02:45 – Rohan:
+One concern is that we haven’t fully tested the system under load. If we get high traffic during launch, we may face scalability issues.
+
+02:56 – Meera:
+Agreed. We need at least one round of stress testing. I can prepare a script for generating synthetic queries.
+
+03:12 – Aisha:
+Let’s keep that as a high-priority task. What’s the ETA?
+
+03:18 – Meera:
+I can start on Friday once the optimization work is done.
+
+03:26 – Karan:
+Also, can you confirm if we are including multilingual support in the first release?
+
+03:34 – Rohan:
+Not fully. English will be the only stable language. Basic Hindi support exists but accuracy is only around 70 percent. I recommend marking multilingual support as beta for now.
+
+03:50 – Aisha:
+Okay, we will label it as beta. Karan, please add that to the release notes.
+
+03:58 – Karan:
+Done. One last point. Do we have the onboarding FAQ ready?
+
+04:05 – Rohan:
+Almost. I will finalize it by Monday.
+
+04:10 – Aisha:
+Alright team, let’s end the meeting here.
