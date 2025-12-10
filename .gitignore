@@ -9,9 +9,9 @@
 # Ignore database files
 .db
 
-
-
 # Ignore virtual environments and dependency files
 venv/
 .env
 *.log
+
+uploads/

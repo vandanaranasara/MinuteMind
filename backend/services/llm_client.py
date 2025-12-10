@@ -1,56 +1,54 @@
 import os
+import json
 import logging
 from dotenv import load_dotenv
-import json
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 load_dotenv()
 logger = logging.getLogger("llm_client")
 
-import google.generativeai as genai
-
-
 class LLMClient:
     """
-    Wrapper for Google Gemini.
-    If no GOOGLE_API_KEY is found, returns stub JSON instead.
+    Wrapper using LangChain Google Generative AI (Gemini).
+    Falls back to stub JSON if no GOOGLE_API_KEY is found.
     """
 
     def __init__(self):
-        self.api_key = os.getenv("GOOGLE_API_KEY", "")
-        # Use the working Gemini model from your chatbot
-        # self.model = os.getenv("LLM_MODEL", "gemini-2.5-pro")
+        self.api_key = os.getenv("GOOGLE_API_KEY")
         self.model = os.getenv("LLM_MODEL", "gemini-2.5-flash")
 
         if self.api_key:
             try:
-                genai.configure(api_key=self.api_key)
+                self.client = ChatGoogleGenerativeAI(
+                    model=self.model,
+                    google_api_key=self.api_key,
+                    temperature=0.2,
+                )
                 self.enabled = True
-                logger.info("Configured google.generativeai client")
+                logger.info("Configured ChatGoogleGenerativeAI client")
             except Exception as e:
-                logger.error("Failed to configure google.generativeai: %s", e)
+                logger.error(f"Failed to initialize ChatGoogleGenerativeAI: {e}")
                 self.enabled = False
         else:
             self.enabled = False
 
     def complete(self, prompt: str) -> str:
+        """
+        Returns LLM text response.
+        If API key missing or failure occurs → returns stub JSON.
+        """
         if self.enabled:
             try:
-                model = genai.GenerativeModel(self.model)
-                resp = model.generate_content(prompt)
+                response = self.client.invoke(prompt)
+                return response.content if hasattr(response, "content") else str(response)
 
-                # Return text safely
-                if hasattr(resp, "text") and resp.text:
-                    return resp.text
-                # fallback for newer response structures
-                if hasattr(resp, "result"):
-                    return resp.result[0].content[0].text
-                return str(resp)
             except Exception as e:
-                logger.error("Error calling Gemini model: %s", e)
+                logger.error(f"Error calling Gemini model: {e}")
                 return "Error: Could not generate response."
 
-        # -------- Stub mode --------
-        logger.info("LLMClient running in stub mode (no API key). Returning sample JSON.")
+        # ---------- Stub Mode ----------
+        logger.info("LLMClient running in stub mode. Returning sample JSON.")
+
         sample = {
             "summary_short": [
                 "Topic overview and purpose",
@@ -73,6 +71,6 @@ class LLMClient:
                 "Bob": "neutral"
             }
         }
-        return json.dumps(sample)
 
+        return json.dumps(sample)
 
