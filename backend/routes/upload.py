@@ -21,5 +21,5 @@ async def upload_file(file: UploadFile = File(...)):
 
     text = extract_text_from_file(dest)
     # For privacy: we can delete the raw file after extraction if configured
-    # os.remove(dest)
+    #.remove(dest)
     return JSONResponse(content={"file_id": file_id, "filename": file.filename, "transcript": text})

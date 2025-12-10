@@ -195,6 +195,3 @@ The application includes a stub mode that works without an API key for testing:
 ## 👥 Contributor
 
 - [Vandana Ranasara](https://github.com/vandanaranasara)
-
-
-
