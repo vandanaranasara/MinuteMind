@@ -34,25 +34,32 @@ MinuteMind is an intelligent meeting minutes generator that uses AI to transform
 ## 🚀 Installation
 
 1. **Clone the repository**
-   
+   ```bash
    git clone https://github.com/vandanaranasara/MinuteMind.git
    cd MinuteMind
+   ```
 
 2. **Create a virtual environment**
-   
+   ```bash
    python -m venv venv
+   ```
 
 3. **Activate the virtual environment**
    
    On Windows:
+   ```bash
    venv\Scripts\activate
+   ```
       
    On macOS/Linux:
+   ```bash
    source venv/bin/activate
+   ```
 
 4. **Install dependencies**
-   
+   ```bash
    pip install -r requirements.txt
+   ```
    
 5. **Set up environment variables**
    
@@ -77,7 +84,9 @@ The application uses environment variables for configuration. Key settings:
 
 1. Navigate to the project root directory
 2. Start the FastAPI server:sh
+   ```bash
    uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000
+   ```
       The API will be available at `http://localhost:8000`
    
    You can view the API documentation at:
@@ -88,7 +97,9 @@ The application uses environment variables for configuration. Key settings:
 
 1. In a new terminal, activate your virtual environment
 2. Start the Streamlit app:
+   ```bash
    streamlit run frontend/index.py
+   ```
       The web interface will open at `http://localhost:8501`
 
 ### Using the Application
