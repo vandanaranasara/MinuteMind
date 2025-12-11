@@ -246,7 +246,6 @@ def upload_page():
             placeholder="e.g., Q4 Planning Meeting",
             help="Give your meeting a title for better organization"
         )
-        # include_speakers = st.checkbox("Preserve speaker labels", True, help="Keep speaker names/identifiers in the analysis")
     
     with col2:
         include_speakers = st.checkbox("Preserve speaker labels", True, help="Keep speaker names/identifiers in the analysis")
@@ -267,7 +266,7 @@ def upload_page():
             st.session_state.processing_result = None
             st.session_state.result_options = None  # Clear stored options too
     st.session_state.last_options = current_options
-    
+
     # Handle file upload
     if uploaded and st.session_state.uploaded_file != uploaded:
         st.session_state.uploaded_file = uploaded
@@ -323,7 +322,6 @@ def upload_page():
                     "include_speakers": include_speakers
                 }
                 st.success("✅ Processing complete! Scroll down to view results.")
-                # st.balloons()
     
     # Display results
     if st.session_state.processing_result:

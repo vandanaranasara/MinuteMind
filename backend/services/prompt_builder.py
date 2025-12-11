@@ -42,9 +42,3 @@ def build_prompt(transcript: str, meeting_title: str = "", include_speakers: boo
 
     full_prompt = "\n\n".join(prompt_parts)
     return full_prompt
-
-def build_sentiment_prompt(transcript: str) -> str:
-    return (
-        "Return only a JSON object mapping speaker names to sentiment: "
-        '{"Speaker 1": "positive", "Speaker 2": "neutral"}\n\nTRANSCRIPT:\n' + transcript
-    )

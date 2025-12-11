@@ -4,6 +4,7 @@ from backend.services.llm_client import LLMClient
 from backend.services.prompt_builder import build_prompt
 from backend.utils.validators import ensure_json_serializable
 from backend.schemas import ProcessRequest, ProcessResponse
+import json
 import logging
 
 router = APIRouter(prefix="/process", tags=["Process"])
@@ -41,7 +42,6 @@ async def process_meeting(req: RawRequest):
     output_text = llm.complete(prompt)
 
     # The model MUST return JSON. We attempt to parse.
-    import json
     try:
         parsed = json.loads(output_text)
     except Exception as e:

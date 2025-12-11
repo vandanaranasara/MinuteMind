@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from backend.routes.upload import router as upload_router
 from backend.routes.process import router as process_router
-from backend.routes.sentiment import router as sentiment_router
+#from backend.routes.sentiment import router as sentiment_router
 from backend.core.config import settings
 from backend.core.logger import setup_logging
 from dotenv import load_dotenv
@@ -26,7 +26,7 @@ app.add_middleware(
 
 app.include_router(upload_router)
 app.include_router(process_router)
-app.include_router(sentiment_router)
+#app.include_router(sentiment_router)
 
 @app.get("/")
 async def root():
