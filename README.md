@@ -147,12 +147,6 @@ MinuteMind/
 └── README.md                   # This file
 ```
 
-## 🔌 API Endpoints
-
-- `POST /upload` - Upload a meeting transcript file (PDF or TXT)
-- `POST /process` - Process a transcript and generate meeting minutes
-- `POST /sentiment` - Analyze sentiment for speakers in a transcript
-
 ## 🧪 Testing
 
 The application includes a stub mode that works without an API key for testing:

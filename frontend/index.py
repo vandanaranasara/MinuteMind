@@ -17,133 +17,153 @@ st.set_page_config(
 # Inject custom CSS
 st.markdown("""
     <style>
-    /* Main styling */
+
+    /* ================================
+       GLOBAL PAGE BACKGROUND
+    =================================*/
     .main {
         padding-top: 2rem;
+        background: linear-gradient(160deg, #f5f3ff 0%, #ede9fe 40%, #e0e7ff 100%);
+        min-height: 100vh;
+        font-family: "Inter", sans-serif;
     }
-    
-    /* Custom header styling */
+
+    /* ================================
+       HEADER
+    =================================*/
     .main-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #b39ddb 0%, #9575cd 40%, #7e57c2 100%);
         padding: 2rem;
-        border-radius: 10px;
+        border-radius: 22px;
         color: white;
-        margin-bottom: 2rem;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        margin-bottom: 2.5rem;
+        box-shadow: 0 14px 35px rgba(123, 97, 255, 0.28);
     }
-    
+
     .main-header h1 {
-        color: white;
         margin: 0;
-        font-size: 2.5rem;
+        font-size: 2.8rem;
+        font-weight: 700;
     }
-    
+
     .main-header p {
-        color: rgba(255, 255, 255, 0.9);
         margin-top: 0.5rem;
-        font-size: 1.1rem;
+        opacity: 0.95;
+        font-size: 1.15rem;
     }
-    
-    /* Feature cards */
+
+    /* ================================
+    FEATURE CARDS
+    ===================================*/
+    [data-testid="column"] > div {
+        height: 100% !important;   /* 🔥 Forces equal height */
+    }
+
     .feature-card {
+        
         background: white;
         padding: 1.5rem;
         border-radius: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-left: 4px solid #667eea;
+        border-left: 4px solid #9575cd;
         margin-bottom: 1rem;
         transition: transform 0.2s;
     }
-    
-    .feature-card:hover {
+
+    .feature-card:hover {    
         transform: translateY(-2px);
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+
     }
-    
-    /* Upload area styling */
+
+    /* ================================
+       UPLOAD AREA
+    =================================*/
     .upload-area {
-        border: 2px dashed #667eea;
-        border-radius: 10px;
+        border: 2px dashed #b39ddb;
+        background: #faf7ff;
+        border-radius: 18px;
         padding: 2rem;
         text-align: center;
-        background: #f8f9fa;
-        margin: 1rem 0;
+        box-shadow: 0 4px 16px rgba(149,117,205,0.18);
     }
-    
-    /* Section headers */
+
+    /* ================================
+       SECTION HEADERS
+    =================================*/
     .section-header {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #a78bfa 0%, #8b5cf6 100%);
         color: white;
-        padding: 1rem 1.5rem;
-        border-radius: 8px;
-        margin: 2rem 0 1rem 0;
+        padding: 1rem 1.6rem;
+        border-radius: 14px;
         font-size: 1.5rem;
         font-weight: 600;
+        box-shadow: 0 8px 24px rgba(140, 80, 255, 0.25);
+        margin: 2rem 0 1.3rem 0;
     }
-    
-    /* Action item cards */
-    .action-item-card {
-        background: #f8f9fa;
-        padding: 1.5rem;
-        border-radius: 8px;
-        border-left: 4px solid #28a745;
-        margin-bottom: 1rem;
-    }
-    
-    /* Timeline item styling */
+
+    /* ================================
+       ACTION ITEMS / TIMELINE
+    =================================*/
+    .action-item-card,
     .timeline-item {
-        padding: 1rem;
-        background: #f8f9fa;
-        border-left: 3px solid #667eea;
-        margin-bottom: 0.5rem;
-        border-radius: 4px;
+        background: #f8f5ff;
+        padding: 1.2rem;
+        border-radius: 12px;
+        border-left: 4px solid #a78bfa;
+        margin-bottom: 1rem;
+        box-shadow: 0 4px 14px rgba(167, 139, 250, 0.15);
     }
-    
-    /* Button styling */
+
+    /* ================================
+       BUTTONS
+    =================================*/
     .stButton > button {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(135deg, #9575cd 0%, #7e57c2 100%);
         color: white;
+        padding: 0.7rem 2rem;
+        font-size: 1rem;
+        border-radius: 12px;
         border: none;
-        border-radius: 6px;
-        padding: 0.5rem 2rem;
         font-weight: 600;
-        transition: all 0.3s;
+        transition: all 0.3s ease;
+        box-shadow: 0 5px 18px rgba(126,87,194,0.25);
     }
-    
+
     .stButton > button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(102, 126, 234, 0.4);
+        transform: translateY(-4px);
+        box-shadow: 0 10px 28px rgba(126,87,194,0.35);
     }
-    
-    /* Sidebar styling */
+
+    /* ================================
+       SIDEBAR
+    =================================*/
     [data-testid="stSidebar"] {
-        background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        background: linear-gradient(180deg, #c7b8ea 0%, #b39ddb 40%, #9575cd 100%) !important;
+        color: white !important;
     }
-    
+
     [data-testid="stSidebar"] .stRadio label {
-        color: white;
+        color: white !important;
+        font-size: 1rem;
         font-weight: 500;
     }
-    
-    /* Info boxes */
+
+    /* ================================
+       INFO BOX
+    =================================*/
     .info-box {
-        background: #e7f3ff;
-        border-left: 4px solid #2196F3;
+        background: #f5f3ff;
+        border-left: 4px solid #9575cd;
         padding: 1rem;
-        border-radius: 4px;
+        border-radius: 12px;
         margin: 1rem 0;
+        box-shadow: 0 4px 12px rgba(149,117,205,0.18);
     }
-    
-    /* Success/Error styling */
-    .stSuccess {
-        border-radius: 6px;
-    }
-    
-    .stError {
-        border-radius: 6px;
-    }
+
     </style>
 """, unsafe_allow_html=True)
+
 
 # --- Initialize session state ---
 if "page" not in st.session_state:

@@ -25,7 +25,9 @@ def build_prompt(transcript: str, meeting_title: str = "", include_speakers: boo
         extra.append("Ignore speaker labels.")
     extra.append("Detect and extract actionable tasks, who was assigned, and deadlines (date-like strings).")
     if include_timeline:
-        extra.append("Build an approximate timeline: for each major discussion point, give an approximate timestamp in MM:SS or HH:MM if possible; if transcript lacks timestamps, infer approximate timestamps assuming meeting length is unknown—provide relative order like 00:02, 00:05.")
+        extra.append("Build an approximate timeline: for each major discussion point, give an approximate timestamp in MM:SS or HH:MM if possible; if transcript lacks timestamps, infer approximate timestamps assuming meeting length is unknown—provide relative order like 00:02, 00:05."
+                     "Build a timeline only when explicit or clearly inferable time cues exist. "
+                     "Do NOT invent or guess timestamps. If no reliable time markers exist, return an empty array for timeline.")
     if include_sentiment:
         extra.append("For each speaker that speaks at least once, identify sentiment as positive, negative or neutral.")
     extra.append("Do not include any markdown, explanations, or extra text. Only output JSON.")

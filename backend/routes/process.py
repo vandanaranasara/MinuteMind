@@ -6,6 +6,8 @@ from backend.utils.validators import ensure_json_serializable
 from backend.schemas import ProcessRequest, ProcessResponse
 import json
 import logging
+import re
+
 
 router = APIRouter(prefix="/process", tags=["Process"])
 logger = logging.getLogger("process_router")
@@ -29,12 +31,18 @@ async def process_meeting(req: RawRequest):
     if not req.transcript or len(req.transcript.strip()) < 10:
         raise HTTPException(status_code=400, detail="Transcript is too short or empty.")
 
+    # Detect timestamps like 00:12 or 1:05:33
+    has_timestamps = bool(re.search(r"\b\d{1,2}:\d{2}(:\d{2})?\b", req.transcript))
+
+    # Only allow timeline if user asked AND transcript has timestamps
+    include_timeline_effective = req.include_timeline and has_timestamps
+
     prompt = build_prompt(
         transcript=req.transcript,
         meeting_title=req.meeting_title,
         include_speakers=req.include_speakers,
         include_sentiment=req.include_sentiment,
-        include_timeline=req.include_timeline,
+        include_timeline=include_timeline_effective,
         language=req.language
     )
 
@@ -47,7 +55,6 @@ async def process_meeting(req: RawRequest):
     except Exception as e:
         logger.error("LLM returned non-JSON. Try to extract JSON portion.")
         # fallback attempt: try to locate first { ... } chunk
-        import re
         match = re.search(r"\{.*\}", output_text, re.DOTALL)
         if match:
             try:
@@ -59,6 +66,10 @@ async def process_meeting(req: RawRequest):
 
     # Basic validation
     ensure_json_serializable(parsed)
-    # Optionally post-process timestamps, fill empty fields
-    response_obj = parsed
-    return response_obj
+
+    # Enforce empty timeline when we disabled it
+    if not include_timeline_effective:
+        parsed["timeline"] = []
+
+    return parsed
+
