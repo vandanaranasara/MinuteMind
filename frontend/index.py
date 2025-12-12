@@ -55,19 +55,25 @@ st.markdown("""
     /* ================================
     FEATURE CARDS
     ===================================*/
+    /* Column wrappers: stretch children */
     [data-testid="column"] > div {
-        height: 100% !important;   /* 🔥 Forces equal height */
+        height: 100% !important;
+        display: flex;
     }
 
+    /* Feature cards: fill the column */
     .feature-card {
-        
         background: white;
         padding: 1.5rem;
         border-radius: 10px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        border-left: 4px solid #9575cd;
+        border-left: 4px solid #667eea;
         margin-bottom: 1rem;
         transition: transform 0.2s;
+        height: 100%;          /* fill parent */
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
     }
 
     .feature-card:hover {    
@@ -192,7 +198,7 @@ def home_page():
     with col1:
         st.markdown("""
             <div class="feature-card">
-                <h3>📄 Smart Summarization</h3>
+                <h3>📄 Summarization</h3>
                 <p>Generate concise short summaries and comprehensive detailed summaries of your meetings</p>
             </div>
         """, unsafe_allow_html=True)
@@ -209,7 +215,7 @@ def home_page():
         st.markdown("""
             <div class="feature-card">
                 <h3>📊 Analytics</h3>
-                <p>Get timeline visualization, discussion flow, and speaker sentiment analysis</p>
+                <p>Get timeline visualization, discussion flow, speaker sentiment analysis, and insights</p>
             </div>
         """, unsafe_allow_html=True)
     
@@ -268,7 +274,7 @@ def upload_page():
         )
     
     with col2:
-        include_speakers = st.checkbox("Preserve speaker labels", True, help="Keep speaker names/identifiers in the analysis")
+        include_speakers = st.checkbox("Preserve speaker labels", True, help="Keep speaker names/identifiers in the analysis", disabled=True)
         include_sentiment = st.checkbox("Include sentiment analysis", True, help="Analyze emotional tone of each speaker")
         include_timeline = st.checkbox("Include timeline", True, help="Generate chronological timeline of topics")
     
@@ -284,7 +290,7 @@ def upload_page():
     if "last_options" in st.session_state:
         if st.session_state.last_options != current_options:
             st.session_state.processing_result = None
-            st.session_state.result_options = None  # Clear stored options too
+            st.session_state.result_options = None  
     st.session_state.last_options = current_options
 
     # Handle file upload
@@ -334,6 +340,7 @@ def upload_page():
                 st.error(f"❌ Processing failed: {r.text}")
             else:
                 result = r.json()
+                result["meeting_title"] = meeting_title
                 st.session_state.processing_result = result
                 # Store the options used for this result
                 st.session_state.result_options = {

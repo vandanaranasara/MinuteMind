@@ -16,6 +16,7 @@ def build_prompt(transcript: str, meeting_title: str = "", include_speakers: boo
         '  "action_items": [{ "task": "...", "assigned_to": "...", "deadline": "YYYY-MM-DD" }],',
         '  "speaker_sentiment": { "Speaker Name": "positive|neutral|negative" }',
         "}"
+         "For 'summary_detailed', write a detailed summary in **2–3 separate paragraphs**, not a single paragraph."
     ]
 
     extra = []

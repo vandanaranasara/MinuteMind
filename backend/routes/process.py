@@ -70,6 +70,8 @@ async def process_meeting(req: RawRequest):
     # Enforce empty timeline when we disabled it
     if not include_timeline_effective:
         parsed["timeline"] = []
+    
+    parsed["meeting_title"] = req.meeting_title
 
     return parsed
 
