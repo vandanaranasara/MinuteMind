@@ -8,3 +8,5 @@ google-generativeai  # optional: used if you have Google API key
 requests
 streamlit
 requests
+faster-whisper
+ffmpeg-python

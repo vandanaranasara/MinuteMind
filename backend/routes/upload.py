@@ -1,25 +1,32 @@
 from fastapi import APIRouter, File, UploadFile, HTTPException
 from fastapi.responses import JSONResponse
-from backend.schemas import UploadResponse
-from backend.services.extraction import extract_text_from_file
+from backend.services.audio_transcribe import transcribe_audio
 from backend.core.config import settings
 import os
 import uuid
 
-router = APIRouter(prefix="/upload", tags=["Upload"])
+router = APIRouter(prefix="/upload", tags=["Upload Audio"])
 
-@router.post("", response_model=UploadResponse)
-async def upload_file(file: UploadFile = File(...)):
-    # validate file type
-    if not file.filename.lower().endswith((".pdf", ".txt")):
-        raise HTTPException(status_code=400, detail="Only .pdf and .txt supported")
+AUDIO_EXTS = (".mp3", ".wav", ".m4a", ".flac", ".ogg")
+
+@router.post("", response_model=dict)
+async def upload_audio(file: UploadFile = File(...)):
+    if not file.filename.lower().endswith(AUDIO_EXTS):
+        raise HTTPException(status_code=400, detail="Only audio files are supported (mp3/wav/m4a/flac/ogg)")
+
     os.makedirs(settings.UPLOAD_DIR, exist_ok=True)
     file_id = str(uuid.uuid4())
     dest = os.path.join(settings.UPLOAD_DIR, f"{file_id}_{file.filename}")
     with open(dest, "wb") as f:
         f.write(await file.read())
 
-    text = extract_text_from_file(dest)
-    # For privacy: we can delete the raw file after extraction if configured
-    #.remove(dest)
-    return JSONResponse(content={"file_id": file_id, "filename": file.filename, "transcript": text})
+    try:
+        transcript = transcribe_audio(dest)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Transcription failed: {e}")
+
+    return JSONResponse(content={
+        "file_id": file_id,
+        "filename": file.filename,
+        "transcript": transcript
+    })

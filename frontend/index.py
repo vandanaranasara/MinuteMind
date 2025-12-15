@@ -254,9 +254,9 @@ def upload_page():
     # Upload section
     st.markdown("### 📁 File Upload")
     uploaded = st.file_uploader(
-        "Choose a file (TXT or PDF)",
-        type=["txt", "pdf"],
-        help="Upload your meeting transcript file"
+        "Upload meeting audio (MP3/WAV/M4A/FLAC/OGG)",
+        type=["mp3", "wav", "m4a", "flac", "ogg"],
+        help="Upload your meeting audio file"
     )
     
     if uploaded:
