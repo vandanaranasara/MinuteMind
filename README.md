@@ -130,7 +130,6 @@ MinuteMind/
 │   │   ├── llm_client.py         # LLM client wrapper
 │   │   └── prompt_builder.py     # Prompt construction
 │   ├── utils/
-│   │   ├── file_helpers.py       # File utility functions
 │   │   └── validators.py         # Data validation
 │   ├── models.py                 # Database models
 │   ├── schemas.py                # Pydantic schemas
