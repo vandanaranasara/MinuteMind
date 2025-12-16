@@ -105,10 +105,9 @@ The application uses environment variables for configuration. Key settings:
 ### Using the Application
 
 1. **Navigate to "Upload Transcript"** in the sidebar
-2. **Upload a file**: Choose a TXT or PDF file containing your meeting transcript
+2. **Upload a file**: Choose a MP3/WAV/M4A/FLAC/OGG file containing your meeting transcript
 3. **Configure options**:
    - Set an optional meeting title
-   - Choose to preserve speaker labels
    - Include/exclude sentiment analysis
    - Include/exclude timeline generation
 4. **Click "Process Transcript"** to analyze the meeting
@@ -121,30 +120,29 @@ The application uses environment variables for configuration. Key settings:
 MinuteMind/
 ├── backend/
 │   ├── core/
-│   │   ├── config.py          # Application configuration
-│   │   └── logger.py           # Logging setup
+│   │   ├── config.py             # Application configuration
+│   │   └── logger.py             # Logging setup
 │   ├── routes/
-│   │   ├── upload.py           # File upload endpoint
-│   │   ├── process.py          # Transcript processing endpoint
-│   │   └── sentiment.py        # Sentiment analysis endpoint
+│   │   ├── upload.py             # File upload endpoint
+│   │   └──process.py             # Transcript processing endpoint
 │   ├── services/
-│   │   ├── extraction.py       # Text extraction from files
-│   │   ├── llm_client.py       # LLM client wrapper
-│   │   └── prompt_builder.py   # Prompt construction
+│   │   ├── audio_transcribe.py   # Text extraction from files
+│   │   ├── llm_client.py         # LLM client wrapper
+│   │   └── prompt_builder.py     # Prompt construction
 │   ├── utils/
-│   │   ├── file_helpers.py     # File utility functions
-│   │   └── validators.py       # Data validation
-│   ├── models.py               # Database models
-│   ├── schemas.py              # Pydantic schemas
-│   └── main.py                 # FastAPI application entry point
+│   │   ├── file_helpers.py       # File utility functions
+│   │   └── validators.py         # Data validation
+│   ├── models.py                 # Database models
+│   ├── schemas.py                # Pydantic schemas
+│   └── main.py                   # FastAPI application entry point
 ├── frontend/
 │   ├── components/
-│   │   ├── ui.py               # UI rendering components
-│   └── index.py                # Streamlit main application
-├── uploads/                    # Uploaded files directory
-├── requirements.txt            # Python dependencies
-├── .env                        # Environment variables (create this)
-└── README.md                   # This file
+│   │   ├── ui.py                 # UI rendering components
+│   └── index.py                  # Streamlit main application
+├── uploads/                      # Uploaded files directory
+├── requirements.txt              # Python dependencies
+├── .env                          # Environment variables (create this)
+└── README.md                     # This file
 ```
 
 ## 🧪 Testing
