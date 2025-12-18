@@ -18,7 +18,7 @@ MinuteMind is an intelligent meeting minutes generator that uses AI to transform
 ### Backend
 - **FastAPI**: Modern, fast web framework for building APIs
 - **Google Gemini AI**: LLM for intelligent text analysis (via LangChain)
-- **PyPDF2**: PDF text extraction
+- **WhisperModel**: Text extraction
 - **Pydantic**: Data validation and settings management
 - **Uvicorn**: ASGI server
 
@@ -181,7 +181,7 @@ The application includes a stub mode that works without an API key for testing:
 - Built with [FastAPI](https://fastapi.tiangolo.com/)
 - UI powered by [Streamlit](https://streamlit.io/)
 - AI capabilities via [Google Gemini](https://ai.google.dev/)
-- Text extraction using [PyPDF2](https://pypdf2.readthedocs.io/)
+- Text extraction using [WhisperModel](https://pypi.org/project/faster-whisper/)
 
 ## 👥 Contributor
 

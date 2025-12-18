@@ -78,6 +78,7 @@ async def process_meeting(req: RawRequest):
         parsed["speaker_sentiment"] = {}
     
     parsed["meeting_title"] = req.meeting_title
+    parsed["meeting_date"] = req.meeting_date
 
     return parsed
 

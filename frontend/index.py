@@ -258,9 +258,16 @@ def upload_page():
         type=["mp3", "wav", "m4a", "flac", "ogg"],
         help="Upload your meeting audio file"
     )
-    
-    if uploaded:
-        st.success(f"✅ File loaded: **{uploaded.name}** ({uploaded.size:,} bytes)")
+
+    # upload_clicked = False
+    # if uploaded:
+    #     st.success(f"✅ File loaded: **{uploaded.name}** ({uploaded.size:,} bytes)")
+    #     upload_clicked = st.button(
+    #         "📤 Upload & Extract Text",
+    #         type="primary",
+    #         use_container_width=False,
+    #         help="Send the file to the server and extract the transcript"
+    #     )
     
     # Configuration section
     st.markdown("### ⚙️ Processing Options")
@@ -300,9 +307,17 @@ def upload_page():
             # Remove: st.session_state.result_options = None  
     st.session_state.last_options = current_options
 
-    # Handle file upload
-    if uploaded and st.session_state.uploaded_file != uploaded:
-        st.session_state.uploaded_file = uploaded
+    upload_clicked = False
+    if uploaded:
+        st.success(f"✅ File loaded: **{uploaded.name}** ({uploaded.size:,} bytes)")
+        upload_clicked = st.button(
+            "📤 Upload & Extract Text",
+            type="primary",
+            use_container_width=False,
+        )
+    
+    # Handle file upload only when button is clicked
+    if uploaded and upload_clicked:
         with st.spinner("🔄 Uploading and extracting text..."):
             files = {"file": (uploaded.name, uploaded.getvalue())}
             resp = requests.post(f"{API_URL}/upload", files=files)
@@ -349,6 +364,7 @@ def upload_page():
             else:
                 result = r.json()
                 result["meeting_title"] = meeting_title
+                result["meeting_date"] = meeting_date.isoformat() if meeting_date else None
                 st.session_state.processing_result = result
                 # Remove the result_options tracking - no longer needed
                 st.success("✅ Processing complete! Scroll down to view results.")

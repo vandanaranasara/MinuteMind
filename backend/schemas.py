@@ -28,6 +28,7 @@ class ProcessRequest(BaseModel):
     language: str = "english"
 
 class ProcessResponse(BaseModel):
+    meeting_date: str | None = ""
     meeting_title: str | None = ""
     summary_short: List[str]
     summary_detailed: str
