@@ -21,6 +21,7 @@ class TimelineItem(BaseModel):
 class ProcessRequest(BaseModel):
     transcript: str
     meeting_title: Optional[str] = None
+    meeting_date: Optional[str] = None
     include_speakers: bool = True
     include_sentiment: bool = True
     include_timeline: bool = True

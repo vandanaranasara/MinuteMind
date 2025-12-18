@@ -272,6 +272,12 @@ def upload_page():
             placeholder="e.g., Q4 Planning Meeting",
             help="Give your meeting a title for better organization"
         )
+        # Date of Meeting - used as reference for deadlines
+        meeting_date = st.date_input(
+            "Date of Meeting",
+            value=datetime.today(),
+            help="This date will be used as the reference for calculating deadlines (YYYY-MM-DD)"
+        )
     
     with col2:
         include_speakers = st.checkbox("Preserve speaker labels", True, help="Keep speaker names/identifiers in the analysis", disabled=True)
@@ -283,14 +289,15 @@ def upload_page():
         "include_speakers": include_speakers,
         "include_sentiment": include_sentiment,
         "include_timeline": include_timeline,
-        "meeting_title": meeting_title
+        "meeting_title": meeting_title,
+        "meeting_date": meeting_date.isoformat() if meeting_date else None,
     }
     
     # Clear results if options changed
     if "last_options" in st.session_state:
         if st.session_state.last_options != current_options:
             st.session_state.processing_result = None
-            st.session_state.result_options = None  
+            # Remove: st.session_state.result_options = None  
     st.session_state.last_options = current_options
 
     # Handle file upload
@@ -329,10 +336,11 @@ def upload_page():
             payload = {
                 "transcript": transcript,
                 "meeting_title": meeting_title,
+                "meeting_date": meeting_date.isoformat() if meeting_date else None,
                 "include_speakers": include_speakers,
                 "include_sentiment": include_sentiment,
                 "include_timeline": include_timeline,
-                "language": "english"
+                "language": "english",
             }
             with st.spinner("🤖 AI is analyzing your transcript... This may take a moment."):
                 r = requests.post(f"{API_URL}/process", json=payload)
@@ -342,23 +350,13 @@ def upload_page():
                 result = r.json()
                 result["meeting_title"] = meeting_title
                 st.session_state.processing_result = result
-                # Store the options used for this result
-                st.session_state.result_options = {
-                    "include_sentiment": include_sentiment,
-                    "include_timeline": include_timeline,
-                    "include_speakers": include_speakers
-                }
+                # Remove the result_options tracking - no longer needed
                 st.success("✅ Processing complete! Scroll down to view results.")
     
     # Display results
     if st.session_state.processing_result:
         result = st.session_state.processing_result
-        # Get the options that were used when generating this result
-        result_options = st.session_state.get("result_options", {
-            "include_sentiment": True,
-            "include_timeline": True,
-            "include_speakers": True
-        })
+        # Remove result_options - no longer needed
         
         st.markdown("---")
         st.markdown("## 📊 Analysis Results")
@@ -380,21 +378,22 @@ def upload_page():
         else:
             st.info("No discussion flow available.")
         
-        # Timeline - only show if it was included when generating
-        if result_options.get("include_timeline", True):
-            st.markdown('<div class="section-header">⏱️ Timeline</div>', unsafe_allow_html=True)
-            render_timeline(result.get("timeline", []))
+        # Timeline - always show (will display "No timeline items" if empty)
+        st.markdown('<div class="section-header">⏱️ Timeline</div>', unsafe_allow_html=True)
+        render_timeline(result.get("timeline", []))
         
         # Action Items
         st.markdown('<div class="section-header">✅ Action Items</div>', unsafe_allow_html=True)
         render_action_items(result.get("action_items", []))
         
-        # Speaker Sentiment - only show if it was included when generating
-        if result_options.get("include_sentiment", True):
-            sentiment_data = result.get("speaker_sentiment", {})
-            if sentiment_data:
-                st.markdown('<div class="section-header">😊 Speaker Sentiment</div>', unsafe_allow_html=True)
-                render_sentiment(sentiment_data)
+        # Speaker Sentiment - always show (will handle empty dict)
+        sentiment_data = result.get("speaker_sentiment", {})
+        if sentiment_data:
+            st.markdown('<div class="section-header">😊 Speaker Sentiment</div>', unsafe_allow_html=True)
+            render_sentiment(sentiment_data)
+        else:
+            st.markdown('<div class="section-header">😊 Speaker Sentiment</div>', unsafe_allow_html=True)
+            st.info("No sentiment analysis available.")
         
         # Download button
         st.markdown("---")

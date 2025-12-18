@@ -22,10 +22,11 @@ async def process_meeting(req: RawRequest):
     {
       "transcript": "...",
       "meeting_title": "...",
+      "meeting_date": "2025-12-18",
       "include_speakers": true,
       "include_sentiment": true,
       "include_timeline": true,
-      "language":"english"
+      "language": "english"
     }
     """
     if not req.transcript or len(req.transcript.strip()) < 10:
@@ -40,6 +41,7 @@ async def process_meeting(req: RawRequest):
     prompt = build_prompt(
         transcript=req.transcript,
         meeting_title=req.meeting_title,
+        meeting_date=req.meeting_date,
         include_speakers=req.include_speakers,
         include_sentiment=req.include_sentiment,
         include_timeline=include_timeline_effective,
@@ -70,6 +72,10 @@ async def process_meeting(req: RawRequest):
     # Enforce empty timeline when we disabled it
     if not include_timeline_effective:
         parsed["timeline"] = []
+    
+    # Enforce empty sentiment when we disabled it
+    if not req.include_sentiment:
+        parsed["speaker_sentiment"] = {}
     
     parsed["meeting_title"] = req.meeting_title
 
