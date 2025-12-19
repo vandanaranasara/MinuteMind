@@ -1,12 +1,12 @@
 # 📝 MinuteMind - AI Meeting Minutes Assistant
 
-MinuteMind is an intelligent meeting minutes generator that uses AI to transform meeting transcripts into actionable insights. Upload your meeting transcripts (PDF or TXT) and get comprehensive summaries, action items, timelines, and sentiment analysis automatically generated.
+MinuteMind is an intelligent meeting minutes generator that uses AI to transform meeting transcripts into actionable insights. Upload your meeting transcripts (MP3 or WAV) and get comprehensive summaries, action items, timelines, and sentiment analysis automatically generated.
 
 ## ✨ Features
 
 - **📄 Smart Summarization**: Generate both concise short summaries and comprehensive detailed summaries
 - **✅ Action Item Extraction**: Automatically identify tasks, assignees, and deadlines from meeting transcripts
-- **⏱️ Timeline Generation**: Create chronological timelines of discussion topics with timestamps
+- **⏱️ Timeline Generation**: Create chronological timelines of discussion topics with timestamps(if available)
 - **💬 Discussion Flow**: Track the flow of conversation and key discussion points
 - **😊 Speaker Sentiment Analysis**: Analyze the emotional tone of each speaker (positive, neutral, negative)
 - **📊 Modern Web Interface**: Beautiful, responsive Streamlit-based UI with gradient designs and intuitive navigation
@@ -108,8 +108,10 @@ The application uses environment variables for configuration. Key settings:
 2. **Upload a file**: Choose a MP3/WAV/M4A/FLAC/OGG file containing your meeting transcript
 3. **Configure options**:
    - Set an optional meeting title
+   - Set meeting date (required)
    - Include/exclude sentiment analysis
    - Include/exclude timeline generation
+5. **Click "Upload & Extract Text"** to generate transcripts from audio
 4. **Click "Process Transcript"** to analyze the meeting
 5. **Review results**: View summaries, action items, timeline, and sentiment analysis
 6. **Download results**: Export the analysis as JSON for further use
@@ -166,7 +168,7 @@ The application includes a stub mode that works without an API key for testing:
 
 ### Issue: File upload fails
 **Solution**: 
-- Ensure the file is in TXT or PDF format
+- Ensure the file is in MP3 or WAV format
 - Check that the `uploads/` directory exists and is writable
 - Verify file size is reasonable
 

@@ -259,17 +259,6 @@ def upload_page():
         help="Upload your meeting audio file"
     )
 
-    # upload_clicked = False
-    # if uploaded:
-    #     st.success(f"✅ File loaded: **{uploaded.name}** ({uploaded.size:,} bytes)")
-    #     upload_clicked = st.button(
-    #         "📤 Upload & Extract Text",
-    #         type="primary",
-    #         use_container_width=False,
-    #         help="Send the file to the server and extract the transcript"
-    #     )
-    
-    # Configuration section
     st.markdown("### ⚙️ Processing Options")
     col1, col2 = st.columns(2)
     

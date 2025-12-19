@@ -67,7 +67,6 @@ def build_prompt(
             "Compute all deadlines relative to the meeting date.",
             f"Treat the meeting date as {meeting_date} (YYYY-MM-DD).",
 
-            # 🔒 HARD, UNBREAKABLE RULE (THIS FIXES YOUR BUG)
             (
                 "WEEKDAY RESOLUTION (STRICT, NO EXCEPTIONS): "
                 "If a weekday name is mentioned WITHOUT the word 'next' "
