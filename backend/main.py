@@ -26,8 +26,10 @@ app.add_middleware(
 
 app.include_router(upload_router)
 app.include_router(process_router)
-#app.include_router(sentiment_router)
 
 @app.get("/")
 async def root():
     return {"status": "ok", "version": app.version}
+
+
+
