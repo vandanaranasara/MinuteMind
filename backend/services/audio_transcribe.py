@@ -5,7 +5,6 @@ _model = None
 def get_model():
     global _model
     if _model is None:
-        # Use "small" for a balance of quality/speed; set device="cuda" if you have GPU
         _model = WhisperModel("small", device="cpu")
     return _model
 
