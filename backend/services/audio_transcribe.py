@@ -11,4 +11,9 @@ def get_model():
 def transcribe_audio(filepath: str) -> str:
     model = get_model()
     segments, _ = model.transcribe(filepath, beam_size=5)
-    return " ".join(seg.text.strip() for seg in segments)
+    
+    transcript = "\n".join(
+        f"[{seg.start:.2f} - {seg.end:.2f}] {seg.text.strip()}"
+        for seg in segments
+    )
+    return transcript

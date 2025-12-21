@@ -33,7 +33,12 @@ async def process_meeting(req: RawRequest):
         raise HTTPException(status_code=400, detail="Transcript is too short or empty.")
 
     # Detect timestamps like 00:12 or 1:05:33
-    has_timestamps = bool(re.search(r"\b\d{1,2}:\d{2}(:\d{2})?\b", req.transcript))
+    has_timestamps = bool(
+    re.search(
+        r"\[\s*\d+(\.\d+)?\s*-\s*\d+(\.\d+)?\s*\]|\b\d{1,2}:\d{2}(:\d{2})?\b",
+        req.transcript
+    )
+)
 
     # Only allow timeline if user asked AND transcript has timestamps
     include_timeline_effective = req.include_timeline and has_timestamps
