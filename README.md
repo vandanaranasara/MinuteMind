@@ -105,7 +105,7 @@ The application uses environment variables for configuration. Key settings:
 ### Using the Application
 
 1. **Navigate to "Upload Transcript"** in the sidebar
-2. **Upload a file**: Choose a MP3/WAV/M4A/FLAC/OGG file containing your meeting transcript
+2. **Upload a file**: Choose a MP3/WAV/M4A file containing your meeting transcript
 3. **Configure options**:
    - Set an optional meeting title
    - Set meeting date (required)
